@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <title>CTRP</title>
+  </head>
+  <style>
+    .ml-5, .mx-5
+    {
+       margin-left: 29rem!important;
+    }
+    .mr-5, .mx-5
+    {
+        margin-right: 33rem!important;
+    }
+    .mb-5, .my-5 {
+    margin-bottom: 3rem!important;
+    }
+
+    .mt-5, .my-5 {
+    margin-top: 4rem!important;
+    }
+      .enterValue h1{
+        color: #dc3545;
+      }
+      @media (min-width: 800)
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 527px;
+}
+    .container{
+        grid-auto-rows: 50px
+    }
+  </style>
+  <body>
+    <div class="container enterValue mx-5 my-5">
+        <h1>Youtube CUTTER</h1>
+        <form method="POST" class="form-inline my-2 my-lg-0">
+          {% csrf_token %}
+          <input class="form-control mr-sm-2" type="text" name="search" placeholder="Enter video name" aria-label="UserName">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+      <dic class="album py-5 bg-light">
+        <div class="container">
+          <div class="row">
+          {% for video in videos %}
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm" >
+                <img  class="bd-placeholder-img card-img-top" width="350" height="200" src="{{video.thumbnail}}" preserveAspectRatio="xMidYMid slice" style='width: 350px;' >
+                <div class="card-body">
+                  <p class="card-text">{{video.title|slice:"0:50"}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a type="button" href="/vict/view/{{video.id}}" name="i"  class="btn btn-sm btn-outline-secondary" id="iy{{video.id}}">View</a>
+                    </div>
+                    <small class="text-muted">{{video.duration}} Mins</small>
+                  </div>
+                </div>
+                </div>
+            </div>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+  </body>
+</html>
