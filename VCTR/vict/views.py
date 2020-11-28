@@ -7,27 +7,23 @@ from moviepy.editor import VideoFileClip, AudioFileClip
 from pytube import YouTube
 
 #YouTube('https://www.youtube.com/watch?v=HO7CRp44s10').streams.first().download()
-b=0;
+
 viwes=[]
 def index(request):
     videos = []
-    #
-
-
-
     if request.method == 'POST':
         search_url = 'https://www.googleapis.com/youtube/v3/search'
         video_url = 'https://www.googleapis.com/youtube/v3/videos'
         search_params = {
-            'part':'snippet',
+            'part': 'snippet',
             'q': request.POST.get('search', False),
             'key': settings.YOUTUBE_DATA_API_KEY,
             'maxResults': 15,
             'type': 'video',
         }
-        video_Ids= []
+        video_Ids = []
         r = requests.get(search_url,params=search_params)
-        results= r.json()['items']
+        results = r.json()['items']
         for result in results:
             video_Ids.append(result['id']['videoId'])
         video_params = {
@@ -39,43 +35,48 @@ def index(request):
         r = requests.get(video_url, params=video_params)
         results = r.json()['items']
         for result in results:
-            video_data ={
+            video_data = {
                 'title': result['snippet']['title'],
                 'id': result['id'],
-                'url' : f'https://www.youtube.com/watch?v={result["id"]}',
-                'duration': int(parse_duration(result['contentDetails']['duration']).total_seconds()//60),
+                'url': f'https://www.youtube.com/watch?v={result["id"]}',
+                'duration': int(parse_duration(result['contentDetails']['duration']).total_seconds() // 60),
                 'thumbnail': result['snippet']['thumbnails']['high']['url'],
             }
             videos.append(video_data)
             global viwes
             viwes.append(video_data)
 
-    context={
+    context = {
         'videos': videos,
     }
 
-    return render(request,'vict/index.html',context,)
+    return render(request, 'vict/index.html', context, )
+
 
 def view(request,myid):
     i=myid
-    print(i)
-    context = {
-        'myvalue': i
-    }
+    context = {'myvalue': i}
+    dic={}
+    for bar in viwes:
+        x=bar.values()
+        for o in bar.values():
+          if i==o:
+              dic = bar
+    def back():
+        k='j'
+        link = f'https://www.youtube.com/watch?v={i}'
+        yt = YouTube(link)
+        pl = yt.streams.first()
+        path=pl.download(f"E:/mm/pytube/")
+        k = "downloaded"
+        if k == "downloaded":
+            print(path)
+            file = VideoFileClip(path)
+            new = file.subclip(t_start=sd, t_end=ed)
+            new.write_videofile(fr"E:\mm\moviepy\converte.mp4")
+    if request.method == 'POST':
+        print(request.POST)
+        sd = request.POST.get('stime', '')
+        ed = request.POST.get('etime', '')
+        back(sd,ed)
     return render(request,'vict/view.html',context)
-    #'''link = f'https://www.youtube.com/embed/{i}'
-    #yt = YouTube(link)
-    #vid = yt.streams.all()
-    #st_num= int(input("Enter the size"))
-    #pl = vid[st_num-1]
-    #pl.download(f'C:/Users/NITESH/PycharmProjects/vv/VideoCTR/VCTR/vict/static/vict/{i}.mp4')
-    #k="downloaded"
-    #print(k)
-    #l=1
-    #if k=="downloaded":
-     #   path = fr'C:/Users/NITESH/PycharmProjects/vv/VideoCTR/VCTR/vict/static/vict/{i}.mp4'
-      #  file = VideoFileClip(path)
-       # new = file.subclip(t_start=6, t_end=16)
-        #new.write_videofile(fr'E:\working drc\New folder\Play__{i}.mp4')
-
-    #'''
