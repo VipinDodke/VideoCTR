@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
 import requests
+from .models import Gift
 from isodate import parse_duration
 from moviepy.editor import VideoFileClip, AudioFileClip
 from pytube import YouTube
@@ -52,19 +53,17 @@ def index(request):
 
     return render(request, 'vict/index.html', context, )
 
-
-def view(request,myid):
-    i=myid
-    context = {'myvalue': i}
-    dic={}
-    for bar in viwes:
-        x=bar.values()
-        for o in bar.values():
-          if i==o:
-              dic = bar
-    def back():
+def gift(request,mid):
+    y=mid
+    print(y)
+    if request.method == 'POST':
+        name = request.POST.get('nam', '')
+        sd = request.POST.get('name', '')
+        ed = request.POST.get('dscr', '')
+        gift= Gift(StartTime=sd,EndTime=ed)
+        gift.save()
         k='j'
-        link = f'https://www.youtube.com/watch?v={i}'
+        link = f'https://www.youtube.com/watch?v={y}'
         yt = YouTube(link)
         pl = yt.streams.first()
         path=pl.download(f"E:/mm/pytube/")
@@ -74,9 +73,36 @@ def view(request,myid):
             file = VideoFileClip(path)
             new = file.subclip(t_start=sd, t_end=ed)
             new.write_videofile(fr"E:\mm\moviepy\converte.mp4")
-    if request.method == 'POST':
-        print(request.POST)
-        sd = request.POST.get('stime', '')
-        ed = request.POST.get('etime', '')
-        back(sd,ed)
+    context = {'myvalue': y}
+
+    return render(request, 'vict/gift.html',context)
+
+def view(request,myid):
+    i=myid
+    s=myid
+    context = {'myvalue': i}
+    global dic
+    for bar in viwes:
+        x=bar.values()
+        for o in bar.values():
+          if i==o:
+              dic = bar
+    last=Gift.objects.last()
+
+    # k='j'
+    # link = f'https://www.youtube.com/watch?v={i}'
+    # yt = YouTube(link)
+    # pl = yt.streams.first()
+    # path=pl.download(f"E:/mm/pytube/")
+    # k = "downloaded"
+    # if k == "downloaded":
+    #     print(path)
+    #     file = VideoFileClip(path)
+    #     new = file.subclip(t_start=last.StartTime, t_end=last.EndTime)
+    #     new.write_videofile(fr"E:\mm\moviepy\converte.mp4")
+    # if request.method == 'POST':
+    #     print(request.POST)
+    #     sd = request.POST.get('stime', '')
+    #     ed = request.POST.get('etime', '')
+    #     back(sd,ed)
     return render(request,'vict/view.html',context)
