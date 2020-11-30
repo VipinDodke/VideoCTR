@@ -6,7 +6,7 @@ from .models import Gift
 from isodate import parse_duration
 from moviepy.editor import VideoFileClip, AudioFileClip
 from pytube import YouTube
-
+# from moviepy.editor import ImageClip,CompositeVideoClip
 #YouTube('https://www.youtube.com/watch?v=HO7CRp44s10').streams.first().download()
 
 viwes=[]
@@ -57,8 +57,8 @@ def gift(request,mid):
     y=mid
     print(y)
     if request.method == 'POST':
-        name = request.POST.get('nam', '')
-        sd = request.POST.get('name', '')
+        name = request.POST.get('name', '')
+        sd = request.POST.get('nam', '')
         ed = request.POST.get('dscr', '')
         gift= Gift(StartTime=sd,EndTime=ed)
         gift.save()

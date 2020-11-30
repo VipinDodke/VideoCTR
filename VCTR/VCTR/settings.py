@@ -123,4 +123,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-YOUTUBE_DATA_API_KEY= 'AIzaSyAjoRAZSjPWMW2hDlDuZNNwfs_D7jfbdWk'
+
+YOUTUBE_DATA_API_KEY= 'AIzaSyAjoRAZSjPWMW2hDlDuZNNwfs_L5jfbdWk'
