@@ -8,22 +8,28 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v9.0" nonce="bxHmZfe8"></script>
+
     <title>View</title>
   </head>
-
   <body>
     <div class="container my-3">
       <div class="row">
+        {%load static%}
           <div class="bd-example col my-5">
-            <iframe width="420" height="345" src="https://www.youtube.com/embed/{{myvalue}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
-            </iframe>
-            <a type="button" href="/vict/gift/{{myvalue}}" id="iy{{myvalue}} class="btn btn-dark">Video Gift</a>
+            <h1>{{name}}</h1>
+            <video class="v my-1" width="650px" controls poster={{poster}} >
+                  <source src="/media/vict/PY_video/{{name}}.mp4" type="video/mp4">
+            </video><br>
+            <label for="name"><h3>Full Video : </h3></label>
+            <a type="button" class="btn btn-warning" name="name" href="/media/vict/PY_video/{{name}}.mp4" download="{{name}}">Video Download</a>
+            <label for="bi"><h3>Gift Video : </h3></label>
+            <a type="button" class="btn btn-success" name="bi" href="/media/vict/PY_video/Mov_video/YOUTUBE_CUTTER_{{name}}.mp4" download="{{name}}">Gift Download</a>
+            <div class="fb-share-button" data-href="http://127.0.0.1:8000/vict/view/static/vict/PY_video/Mov_video/YOUTUBE_CUTTER_{{name}}.mp4" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Fvict%2Fview&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
           </div>
       </div>
-    </div>
+    </div><br>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
-
   </body>
 </html>

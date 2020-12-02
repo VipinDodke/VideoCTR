@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
 import requests
-from .models import Gift
+from .models import Gift ,Clip
 from isodate import parse_duration
 from moviepy.editor import VideoFileClip, AudioFileClip
 from pytube import YouTube
@@ -46,53 +46,49 @@ def index(request):
             videos.append(video_data)
             global viwes
             viwes.append(video_data)
-
     context = {
         'videos': videos,
     }
-
     return render(request, 'vict/index.html', context, )
+
 
 def gift(request,mid):
     y=mid
     print(y)
     if request.method == 'POST':
         name = request.POST.get('name', '')
-        sd = request.POST.get('nam', '')
-        ed = request.POST.get('dscr', '')
-        gift= Gift(StartTime=sd,EndTime=ed)
-        gift.save()
+        sd =int( request.POST.get('nam', ''))
+        ed = int(request.POST.get('dscr', ''))
         k='j'
         link = f'https://www.youtube.com/watch?v={y}'
         yt = YouTube(link)
+        title = yt.title
+        print(title)
         pl = yt.streams.first()
-        path=pl.download(f"E:/mm/pytube/")
+        path=pl.download("media/vict/PY_video")
         k = "downloaded"
         if k == "downloaded":
             print(path)
             file = VideoFileClip(path)
             new = file.subclip(t_start=sd, t_end=ed)
-            new.write_videofile(fr"E:\mm\moviepy\converte.mp4")
+            gift = Gift(Name=name, Pytube_Video=path)
+            gift.save()
+            gift = Clip(Name=name,Moviepy_Video=new.write_videofile(f"media/vict/PY_video/Mov_video/YOUTUBE_CUTTER_{title}.mp4"))
+            gift.save()
     context = {'myvalue': y}
-
     return render(request, 'vict/gift.html',context)
 
 def view(request,myid):
-    i=myid
-    s=myid
-    context = {'myvalue': i}
-    global dic
-    for bar in viwes:
-        x=bar.values()
-        for o in bar.values():
-          if i==o:
-              dic = bar
-    last=Gift.objects.last()
-
-    # k='j'
-    # link = f'https://www.youtube.com/watch?v={i}'
-    # yt = YouTube(link)
-    # pl = yt.streams.first()
+    p=myid
+    print(p)
+    context = {'myvalue':p}
+    k='j'
+    link = f'https://www.youtube.com/watch?v={p}'
+    yt = YouTube(link)
+    name=yt.title
+    poster= yt.thumbnail_url
+    #pl = yt.streams.first()
+    context = {'name':name,'link':link,'poster':poster}
     # path=pl.download(f"E:/mm/pytube/")
     # k = "downloaded"
     # if k == "downloaded":

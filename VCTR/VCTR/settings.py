@@ -31,13 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'vict.apps.VictConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'vict',
 ]
 
 MIDDLEWARE = [
@@ -118,10 +118,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
-YOUTUBE_DATA_API_KEY= 'AIzaSyAjoRAZSjPWMW2hDlDuZNNwfs_L5jfbdWk'
+
+
+#AIzaSyAjoRAZSjPWMW2hDlDuZNNwfs_D7jfbdWk
+YOUTUBE_DATA_API_KEY= 'AIzaSyAjoRAZSjPWMW2hDlDuZNNwfs_D7jfbdWk'
