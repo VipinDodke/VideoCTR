@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
 import requests
-from .models import Gift ,Clip
+from .models import Gift ,Clip,Contect
 from isodate import parse_duration
 from moviepy.editor import VideoFileClip, AudioFileClip
 from pytube import YouTube
@@ -102,3 +102,14 @@ def view(request,myid):
     #     ed = request.POST.get('etime', '')
     #     back(sd,ed)
     return render(request,'vict/view.html',context)
+
+
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        call = request.POST.get('call', '')
+        desc = request.POST.get('desc','')
+        contect = Contect(Name=name, Email=email, Call=call, desc=desc)
+        contect.save()
+    return render(request, 'vict/contact.html')

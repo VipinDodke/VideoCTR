@@ -6,4 +6,5 @@ urlpatterns = [
     path("",views.index,name="IndexHome"),
     path(r"vict/view/<myid>/", views.view, name="View"),
     path(r"vict/gift/<mid>/", views.gift, name="Gift"),
+    path('vict/contact/',views.contact,name="Contact" ),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
