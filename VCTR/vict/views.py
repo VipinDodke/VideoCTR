@@ -78,17 +78,17 @@ def gift(request,mid):
     context = {'myvalue': y}
     return render(request, 'vict/gift.html',context)
 
+
 def view(request,myid):
     p=myid
     print(p)
-    context = {'myvalue':p}
     k='j'
     link = f'https://www.youtube.com/watch?v={p}'
     yt = YouTube(link)
     name=yt.title
     poster= yt.thumbnail_url
     #pl = yt.streams.first()
-    context = {'name':name,'link':link,'poster':poster}
+    context = {'myvalue':p,'name':name,'link':link,'poster':poster}
     # path=pl.download(f"E:/mm/pytube/")
     # k = "downloaded"
     # if k == "downloaded":
