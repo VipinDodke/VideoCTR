@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'rrrsga=sk2+#)5d-73h!j@ofmx+tne=o=+c-+bui(p9p#7&)9_'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -114,18 +114,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-
-
-#AIzaSyAjoRAZSjPWMW2hDlDuZNNwfs_D7jfbdWk
-YOUTUBE_DATA_API_KEY= 'AIzaSyAjoRAZSjPWMW2hDlDuZNNwfs_D7jfbdWk'
+YOUTUBE_DATA_API_KEY= 'make Your API KEY ---:) '
